@@ -24,6 +24,7 @@ cd ../
 pwd
 
 python download_model.py
-
+# clean up for docker build
+rm ./hin.tar.gz
 
 cd ../

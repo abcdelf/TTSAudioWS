@@ -58,35 +58,8 @@ async def rtts(websocket):
         
         
 async def main():
-    async with websockets.serve(rtts, "localhost", 8765):
+    async with websockets.serve(rtts, "0.0.0.0", 8765):
         await asyncio.Future()
 
 asyncio.run(main())
 
-
-
-def rtts_demo():
-    url = 'wss://{{endpoint}}/v1/{{project_id}}/rtts' 
-    text = '待合成文本'
-    token = '用户对应region的token'
-    header = {
-        'X-Auth-Token': token
-    }
-    body = {
-        'command': 'START',
-        'text': text,
-        'config': {
-            'audio_format': 'pcm',
-            'property': 'chinese_xiaoyu_common',
-            'sample_rate': '8000'
-        }
-    }
-
-    def _on_message(ws, message):
-        if isinstance(message, bytes):
-            print('receive data length %d' % len(message))
-        else:
-            print(message)
-    ws = websocket.WebSocketApp(url, header, on_message=_on_message, on_error=_on_error)
-    ws.send(json.dumps(body), opcode=websocket.ABNF.OPCODE_TEXT)
-    ws.close()
