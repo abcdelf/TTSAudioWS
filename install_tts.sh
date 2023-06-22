@@ -20,5 +20,10 @@ cd monotonic_align/
 mkdir monotonic_align
 python setup.py build_ext --inplace
 cd ../
+
 pwd
+
+python download_model.py
+
+
 cd ../
