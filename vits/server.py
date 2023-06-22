@@ -1,9 +1,13 @@
 import asyncio
 import websockets
 import json
-
+import os
 import gen
-
+def read_file(filename):
+    with open(filename, 'rb') as file:
+        byte_array = file.read()
+    
+    return byte_array
 async def rtts(websocket):
     async for message in websocket:
         try:
@@ -46,7 +50,30 @@ async def rtts(websocket):
             await websocket.send(json.dumps({ 
                 "resp_type": "START",
             } ))
-            await websocket.send( gen.genaudio(text).tobytes())
+            
+            res  = gen.genaudio(text).tobytes()
+                        
+            # res = res[44:]
+            
+            fragment_size = 1024
+            total_length = len(res)
+            num_fragments = total_length // fragment_size
+            if total_length % fragment_size != 0:
+                num_fragments += 1
+                
+            print(total_length,num_fragments)
+
+            for i in range(num_fragments):
+                start_index = i * fragment_size
+                end_index = min(start_index + fragment_size, total_length)
+
+                fragment = res[start_index:end_index]
+
+                await websocket.send(fragment)
+                
+            await websocket.send(json.dumps({ 
+                "resp_type": "END",
+            } ))
         except:
             await websocket.send(json.dumps({
                     "resp_type": "ERROR",

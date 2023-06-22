@@ -137,5 +137,7 @@ def genaudio(txt):
             x_tst, x_tst_lengths, noise_scale=.667,
             noise_scale_w=0.8, length_scale=1.0
         )[0][0,0].cpu().float().numpy()
-
-    return hyp
+        
+    pcm_data = np.int16(hyp * 32767)
+    
+    return pcm_data

@@ -61,8 +61,10 @@ or you can install it directly (Tested in ubuntu 22.04)
 ## Usage
 After you start the server,it will listen on ```0.0.0.0:8765```  
 The api follows the doc in ```https://support.huaweicloud.com/api-sis/sis_03_0113.html```  
- **BUT THE ENDPOINT NEEDN'T TO BE FILLED IN THIS DEMO**
+ **BUT THE ENDPOINT NEEDN'T TO BE FILLED IN THIS DEMO**  
 
+ We added a demo client ```client.py```
+ you can modify the txt in the py script to test  
 
 ## License
 
