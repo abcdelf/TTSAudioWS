@@ -14,4 +14,4 @@ WORKDIR /work/vits
 
 EXPOSE 8765
 
-CMD [ "python server.py" ]
+CMD [ "python3 server.py" ]
